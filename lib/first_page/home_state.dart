@@ -5,7 +5,30 @@ import 'package:cats_fact/src/repo/repozitoriy.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
+<<<<<<< HEAD
 class MyAppState extends ChangeNotifier {
+=======
+import '../src/storage/hive_src.dart';
+
+class MyAppState extends ChangeNotifier {
+  final HiveMethods hiveMethods = HiveMethods();
+  List<CatModel> users = [];
+  bool isLoading = true;
+
+  void fetchFacts() async {
+    var usersData = await hiveMethods.getFactLists();
+    if (usersData.isNotEmpty) {
+      users.addAll(usersData);
+    }
+    isLoading = false;
+    notifyListeners();
+  }
+
+  void addUserLocalInStorage() async {
+    hiveMethods.addFact(current);
+  }
+
+>>>>>>> 26f622c (second commi)
   var current = CatModel(text: "qwerty", createdAt: DateTime.now());
   String image = "https://cataas.com/cat";
   void init() async {
@@ -31,12 +54,17 @@ class MyAppState extends ChangeNotifier {
       history.insert(0, current);
       var animatedList = historyListKey?.currentState as AnimatedListState?;
       animatedList?.insertItem(0);
+<<<<<<< HEAD
+=======
+      addUserLocalInStorage();
+>>>>>>> 26f622c (second commi)
     }
     current = await getCurrrent;
     image = "https://cataas.com/cat?$b";
     b++;
     notifyListeners();
   }
+<<<<<<< HEAD
 
   var favorites = <CatModel>[];
 
@@ -54,4 +82,6 @@ class MyAppState extends ChangeNotifier {
     favorites.remove(pair);
     notifyListeners();
   }
+=======
+>>>>>>> 26f622c (second commi)
 }

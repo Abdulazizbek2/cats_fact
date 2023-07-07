@@ -41,6 +41,45 @@ class CatModel {
     this.used,
   });
 
+<<<<<<< HEAD
+=======
+  Map<String, dynamic> toMap(CatModel catModel) {
+    Map<String, dynamic> catModelMap = Map();
+    catModelMap["status"] = catModel.status;
+    catModelMap["id"] = catModel.id;
+    catModelMap["user"] = catModel.user;
+    catModelMap["text"] = catModel.text;
+    catModelMap["v"] = catModel.v;
+    catModelMap["source"] = catModel.source;
+    catModelMap["updatedAt"] = catModel.updatedAt;
+    catModelMap["type"] = catModel.type;
+    catModelMap["createdAt"] = catModel.createdAt;
+    catModelMap["deleted"] = catModel.deleted;
+    catModelMap["used"] = catModel.used;
+    return catModelMap;
+  }
+
+  factory CatModel.fromMap(Map<String, dynamic> json) => CatModel(
+        status: json['status'] == null
+            ? null
+            : Status.fromJson(json['status'] as Map<String, dynamic>),
+        id: json['_id'] as String?,
+        user: json['user'] as String?,
+        text: json['text'] as String?,
+        v: json['__v'] as int?,
+        source: json['source'] as String?,
+        updatedAt: json['updatedAt'] == null
+            ? null
+            : DateTime.parse(json['updatedAt'] as String),
+        type: json['type'] as String?,
+        createdAt: json['createdAt'] == null
+            ? null
+            : DateTime.parse(json['createdAt'] as String),
+        deleted: json['deleted'] as bool?,
+        used: json['used'] as bool?,
+      );
+
+>>>>>>> 26f622c (second commi)
   CatModel copyWith({
     Status? status,
     String? id,
