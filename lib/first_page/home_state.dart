@@ -50,7 +50,7 @@ class MyAppState extends ChangeNotifier {
       history.insert(0, current);
       var animatedList = historyListKey?.currentState as AnimatedListState?;
       animatedList?.insertItem(0);
-      addUserLocalInStorage();
+      // addUserLocalInStorage();
     }
     current = await getCurrrent;
     image = "https://cataas.com/cat?$b";
