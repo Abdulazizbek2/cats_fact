@@ -38,12 +38,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   dio: ^5.2.1+1
   json_annotation: ^4.8.1
-<<<<<<< HEAD
-=======
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   flutter_bloc: ^8.1.2
->>>>>>> 26f622c (second commi)
 
 dev_dependencies:
   flutter_test:
