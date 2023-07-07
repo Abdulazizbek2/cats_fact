@@ -106,22 +106,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-<<<<<<< HEAD
-class GeneratorPage extends StatefulWidget {
-  const GeneratorPage({super.key});
-
-  @override
-  State<GeneratorPage> createState() => _GeneratorPageState();
-}
-
-class _GeneratorPageState extends State<GeneratorPage> {
-  @override
-=======
 class GeneratorPage extends StatelessWidget {
   const GeneratorPage({super.key});
 
   @override
->>>>>>> 26f622c (second commi)
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     if (appState.current.id == null) {
@@ -146,14 +134,7 @@ class GeneratorPage extends StatelessWidget {
             const SizedBox(height: 10),
             const SizedBox(width: 10),
             ElevatedButton(
-<<<<<<< HEAD
-              onPressed: () {
-                appState.getNext();
-                setState(() {});
-              },
-=======
               onPressed: () {},
->>>>>>> 26f622c (second commi)
               child: const Text('Next'),
             ),
             const Spacer(flex: 2),

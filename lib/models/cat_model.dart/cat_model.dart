@@ -41,8 +41,6 @@ class CatModel {
     this.used,
   });
 
-<<<<<<< HEAD
-=======
   Map<String, dynamic> toMap(CatModel catModel) {
     Map<String, dynamic> catModelMap = Map();
     catModelMap["status"] = catModel.status;
@@ -79,7 +77,6 @@ class CatModel {
         used: json['used'] as bool?,
       );
 
->>>>>>> 26f622c (second commi)
   CatModel copyWith({
     Status? status,
     String? id,
