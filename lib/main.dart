@@ -1,7 +1,7 @@
-import 'package:cats_fact/pages/first_page/first_page.dart';
-import 'package:cats_fact/pages/first_page/home_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'screens/first/first.dart';
+import 'first_page/home_state.dart';
 
 void main() {
   runApp(const MyApp());
