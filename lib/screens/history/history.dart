@@ -1,7 +1,7 @@
-import 'package:cats_fact/screens/first/first.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../first_page/home_state.dart';
+import '../first/components/big_card.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});

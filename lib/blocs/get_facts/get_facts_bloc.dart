@@ -1,30 +1,73 @@
+import 'dart:math';
+import 'dart:developer' as dev;
 import 'package:cats_fact/core/dio/dio_error_exception.dart';
 import 'package:cats_fact/src/repo/repository.dart';
+import 'package:cats_fact/src/storage/hive_src.dart';
 import 'package:dio/dio.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../models/cat_model.dart/cat_model.dart';
 
 part 'get_facts_event.dart';
 part 'get_facts_state.dart';
 
-part 'get_facts_bloc.freezed.dart';
-
-class GetFactsBloc extends Bloc<GetFactsEvent, GetFactsState> {
-  final CatFactRepo catFactRepo;
-  GetFactsBloc(this.catFactRepo) : super(GetFactsInitial()) {
-    on<_GetFacts>(_getFacts);
+class GetFactsBloc extends Bloc<CatFatsEvents, GetFactsState> {
+  final HiveMethods hiveMethods = HiveMethods();
+  GlobalKey? historyListKey;
+  GetFactsBloc()
+      : super(GetFactsState(
+            catshistoryList: const [],
+            b: 1,
+            current: CatModel(text: "qwerty", createdAt: DateTime.now()),
+            image: "https://cataas.com/cat")) {
+    on<FactInitializaEvent>(
+      (event, emit) async {
+        try {
+          CatModel current = getCurrent;
+          final catshistoryList = await hiveMethods.getFactLists();
+          emit(GetFactsState(
+              catshistoryList: catshistoryList,
+              b: 1,
+              current: current,
+              image: "https://cataas.com/cat"));
+        } on DioException catch (e) {
+          emit(GetFactsError(
+              errorMessage: DioExceptions.fromDioError(e).toString(),
+              catshistoryList: const [],
+              b: 1,
+              current: CatModel(text: "erorr", createdAt: DateTime.now()),
+              image: "https://cataas.com/cat"));
+        }
+      },
+    );
+    on<FactNextEvent>((event, emit) async {
+      CatModel current = getCurrent;
+      if (!state.catshistoryList
+          .map((e) => e.id)
+          .toList()
+          .contains(current.id)) {
+        hiveMethods.addFact(current);
+        var animatedList = historyListKey?.currentState as AnimatedListState?;
+        animatedList?.insertItem(0);
+      }
+      final catshistoryList = await hiveMethods.getFactLists();
+      emit(GetFactsState(
+          catshistoryList: catshistoryList,
+          b: state.b + 1,
+          current: current,
+          image: "https://cataas.com/cat?${state.b}"));
+    });
   }
 
-  Future<void> _getFacts(_GetFacts event, Emitter<GetFactsState> emit) async {
-    emit(GetFactsLoading());
+  get getCurrent async {
+    final dio = Dio();
     try {
-      final res = await catFactRepo.getFacts();
-      emit(GetFactsSuccess(catsModelList: res));
-    } on DioException catch (e) {
-      emit(GetFactsError(
-          errorMessage: DioExceptions.fromDioError(e).toString()));
+      final res = await CatFactRepo(dio).getFacts();
+      dev.log('res  $res');
+    } catch (e) {
+      dev.log('error  $e');
     }
+    int rand = Random().nextInt((await CatFactRepo(dio).getFacts()).length);
+    return (await CatFactRepo(dio).getFacts())[rand];
   }
 }

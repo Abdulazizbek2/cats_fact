@@ -1,7 +1,7 @@
 part of 'get_facts_bloc.dart';
 
-@freezed
-abstract class GetFactsEvent with _$GetFactsEvent {
+class CatFatsEvents {}
 
-  const factory GetFactsEvent.getFacts() = _GetFacts;
-}
+class FactNextEvent extends CatFatsEvents {}
+
+class FactInitializaEvent extends CatFatsEvents {}

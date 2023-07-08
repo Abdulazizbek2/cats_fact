@@ -1,3 +1,4 @@
+import 'package:cats_fact/blocs/get_facts/get_facts_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -111,38 +112,45 @@ class GeneratorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    if (appState.current.id == null) {
-      appState.init();
-    }
-    var pair = appState.current;
+    // var appState = context.watch<MyAppState>();
+    // if (appState.current.id == null) {
+    //   appState.init();
+    // }
+    // var pair = appState.current;
+    final bloc = context.read<GetFactsBloc>();
 
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: 10),
-            const Spacer(
-              flex: 2,
-            ),
-            SizedBox(height: 400, child: Image.network(appState.image)),
-            if (appState.current.id == null)
-              const CircularProgressIndicator.adaptive()
-            else
-              BigCard(pair: pair),
-            const SizedBox(height: 10),
-            const SizedBox(width: 10),
-            ElevatedButton(
-              onPressed: () {
-                appState.getNext();
-              },
-              child: const Text('Next'),
-            ),
-            const Spacer(flex: 2),
-          ],
-        ),
+        child: StreamBuilder<GetFactsState?>(
+            initialData: bloc.state,
+            stream: bloc.stream,
+            builder: (context, snapshot) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 10),
+                  const Spacer(
+                    flex: 2,
+                  ),
+                  SizedBox(
+                      height: 400, child: Image.network(snapshot.data!.image)),
+                  if (snapshot.data!.current.id == null)
+                    const CircularProgressIndicator.adaptive()
+                  else
+                    BigCard(pair: snapshot.data!.current),
+                  const SizedBox(height: 10),
+                  const SizedBox(width: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      bloc.add(FactNextEvent());
+                    },
+                    child: const Text('Next'),
+                  ),
+                  const Spacer(flex: 2),
+                ],
+              );
+            }),
       ),
     );
   }
