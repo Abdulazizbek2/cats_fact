@@ -1,5 +1,4 @@
 import 'package:cats_fact/blocs/get_facts/get_facts_bloc.dart';
-import 'package:cats_fact/models/cat_model.dart/cat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
