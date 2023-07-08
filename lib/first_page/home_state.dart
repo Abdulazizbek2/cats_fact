@@ -10,16 +10,6 @@ import '../src/storage/hive_src.dart';
 class MyAppState extends ChangeNotifier {
   final HiveMethods hiveMethods = HiveMethods();
   List<CatModel> users = [];
-  // bool isLoading = true;
-
-  // void fetchFacts() async {
-  //   var usersData = await hiveMethods.getFactLists();
-  //   if (usersData.isNotEmpty) {
-  //     users.addAll(usersData);
-  //   }
-  //   isLoading = false;
-  //   notifyListeners();
-  // }
 
   void addUserLocalInStorage() async {
     hiveMethods.addFact(current);

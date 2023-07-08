@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../blocs/get_facts/get_facts_bloc.dart';
 import '../../first_page/home_state.dart';
 import '../first/components/big_card.dart';
 
@@ -47,32 +48,37 @@ class _HistoryListViewState extends State<HistoryListView> {
 
   @override
   Widget build(BuildContext context) {
-    final appState = context.watch<MyAppState>();
-    appState.historyListKey = _key;
+    // final appState = context.watch<MyAppState>();
+    // appState.historyListKey = _key;
+    final bloc = context.read<GetFactsBloc>();
 
-    return ShaderMask(
-      shaderCallback: (bounds) => _maskingGradient.createShader(bounds),
-      // This blend mode takes the opacity of the shader (i.e. our gradient)
-      // and applies it to the destination (i.e. our animated list).
-      blendMode: BlendMode.dstIn,
-      child: AnimatedList(
-        key: _key,
-        reverse: true,
-        padding: const EdgeInsets.only(top: 100),
-        initialItemCount: appState.history.length,
-        itemBuilder: (context, index, animation) {
-          final pair = appState.history[index];
-          return SizeTransition(
-            sizeFactor: animation,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 20, right: 10, left: 10),
-              child: BigCard(
-                pair: pair,
-              ),
+    return StreamBuilder<GetFactsState?>(
+        initialData: bloc.state,
+        stream: bloc.stream,
+        builder: (context, snapshot) {
+          return ShaderMask(
+            shaderCallback: (bounds) => _maskingGradient.createShader(bounds),
+            blendMode: BlendMode.dstIn,
+            child: AnimatedList(
+              key: _key,
+              reverse: true,
+              padding: const EdgeInsets.only(top: 100),
+              initialItemCount: snapshot.data!.catshistoryList.length,
+              itemBuilder: (context, index, animation) {
+                final pair = snapshot.data!.catshistoryList[index];
+                return SizeTransition(
+                  sizeFactor: animation,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: 20, right: 10, left: 10),
+                    child: BigCard(
+                      pair: pair,
+                    ),
+                  ),
+                );
+              },
             ),
           );
-        },
-      ),
-    );
+        });
   }
 }

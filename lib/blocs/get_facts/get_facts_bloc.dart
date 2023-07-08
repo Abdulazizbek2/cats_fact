@@ -13,9 +13,9 @@ part 'get_facts_state.dart';
 
 class GetFactsBloc extends Bloc<CatFatsEvents, GetFactsState> {
   final HiveMethods hiveMethods = HiveMethods();
-  GlobalKey? historyListKey;
   GetFactsBloc()
       : super(GetFactsState(
+            historyListKey: null,
             catshistoryList: const [],
             b: 1,
             current: CatModel(text: "qwerty", createdAt: DateTime.now()),
@@ -26,12 +26,14 @@ class GetFactsBloc extends Bloc<CatFatsEvents, GetFactsState> {
           CatModel current = getCurrent;
           final catshistoryList = await hiveMethods.getFactLists();
           emit(GetFactsState(
+              historyListKey: null,
               catshistoryList: catshistoryList,
               b: 1,
               current: current,
               image: "https://cataas.com/cat"));
         } on DioException catch (e) {
           emit(GetFactsError(
+              historyListKey: null,
               errorMessage: DioExceptions.fromDioError(e).toString(),
               catshistoryList: const [],
               b: 1,
@@ -47,11 +49,13 @@ class GetFactsBloc extends Bloc<CatFatsEvents, GetFactsState> {
           .toList()
           .contains(current.id)) {
         hiveMethods.addFact(current);
-        var animatedList = historyListKey?.currentState as AnimatedListState?;
+        var animatedList =
+            state.historyListKey?.currentState as AnimatedListState?;
         animatedList?.insertItem(0);
       }
       final catshistoryList = await hiveMethods.getFactLists();
       emit(GetFactsState(
+          historyListKey: null,
           catshistoryList: catshistoryList,
           b: state.b + 1,
           current: current,

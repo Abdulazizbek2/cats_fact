@@ -1,9 +1,7 @@
 import 'package:cats_fact/blocs/get_facts/get_facts_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'screens/first/first.dart';
-import 'first_page/home_state.dart';
 
 void main() {
   runApp(const MyApp());

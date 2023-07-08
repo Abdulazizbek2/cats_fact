@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../history/history.dart';
 import '../../models/cat_model.dart/cat_model.dart';
-import '../../first_page/home_state.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -32,8 +31,6 @@ class _MyHomePageState extends State<MyHomePage> {
         throw UnimplementedError('no widget for $selectedIndex');
     }
 
-    // The container for the current page, with its background color
-    // and subtle switching animation.
     var mainArea = ColoredBox(
       color: colorScheme.surfaceVariant,
       child: AnimatedSwitcher(
@@ -46,8 +43,6 @@ class _MyHomePageState extends State<MyHomePage> {
       body: LayoutBuilder(
         builder: (context, constraints) {
           if (constraints.maxWidth < 450) {
-            // Use a more mobile-friendly layout with BottomNavigationBar
-            // on narrow screens.
             return Column(
               children: [
                 Expanded(child: mainArea),

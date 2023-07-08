@@ -6,10 +6,13 @@ class GetFactsState {
   final int b;
   final CatModel current;
   final String image;
+
+  final GlobalKey? historyListKey;
   const GetFactsState(
       {required this.catshistoryList,
       required this.b,
       required this.current,
+      required this.historyListKey,
       required this.image});
 }
 
@@ -37,7 +40,8 @@ class GetFactsError extends GetFactsState {
       required super.catshistoryList,
       required super.b,
       required super.current,
-      required super.image});
+      required super.image,
+      required super.historyListKey});
 }
 
 // class GetFactsSuccess extends GetFactsState {
