@@ -15,47 +15,40 @@ class GetFactsBloc extends Bloc<CatFatsEvents, GetFactsState> {
   final HiveMethods hiveMethods = HiveMethods();
   GetFactsBloc()
       : super(GetFactsState(
-            historyListKey: null,
-            catshistoryList: const [],
+            catshistoryList: [],
             b: 1,
-            current: CatModel(text: "qwerty", createdAt: DateTime.now()),
+            current: CatModel(text: "qwerty", createdAt: "3434"),
             image: "https://cataas.com/cat")) {
     on<FactInitializaEvent>(
       (event, emit) async {
         try {
-          CatModel current = getCurrent;
+          CatModel current = await getCurrent;
           final catshistoryList = await hiveMethods.getFactLists();
           emit(GetFactsState(
-              historyListKey: null,
               catshistoryList: catshistoryList,
               b: 1,
               current: current,
               image: "https://cataas.com/cat"));
         } on DioException catch (e) {
           emit(GetFactsError(
-              historyListKey: null,
               errorMessage: DioExceptions.fromDioError(e).toString(),
-              catshistoryList: const [],
+              catshistoryList: [],
               b: 1,
-              current: CatModel(text: "erorr", createdAt: DateTime.now()),
+              current: CatModel(text: "erorr", createdAt: "00"),
               image: "https://cataas.com/cat"));
         }
       },
     );
     on<FactNextEvent>((event, emit) async {
-      CatModel current = getCurrent;
+      CatModel current = await getCurrent;
       if (!state.catshistoryList
           .map((e) => e.id)
           .toList()
           .contains(current.id)) {
         hiveMethods.addFact(current);
-        var animatedList =
-            state.historyListKey?.currentState as AnimatedListState?;
-        animatedList?.insertItem(0);
       }
       final catshistoryList = await hiveMethods.getFactLists();
       emit(GetFactsState(
-          historyListKey: null,
           catshistoryList: catshistoryList,
           b: state.b + 1,
           current: current,

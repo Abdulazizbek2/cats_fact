@@ -15,7 +15,7 @@ class MyAppState extends ChangeNotifier {
     hiveMethods.addFact(current);
   }
 
-  var current = CatModel(text: "qwerty", createdAt: DateTime.now());
+  var current = CatModel(text: "qwerty", createdAt: "");
   String image = "https://cataas.com/cat";
   void init() async {
     current = await getCurrent;

@@ -17,11 +17,11 @@ class CatModel {
   @JsonKey(name: "source")
   String? source;
   @JsonKey(name: "updatedAt")
-  DateTime? updatedAt;
+  String? updatedAt;
   @JsonKey(name: "type")
   String? type;
   @JsonKey(name: "createdAt")
-  DateTime? createdAt;
+  String? createdAt;
   @JsonKey(name: "deleted")
   bool? deleted;
   @JsonKey(name: "used")
@@ -58,21 +58,15 @@ class CatModel {
   }
 
   factory CatModel.fromMap(Map<String, dynamic> json) => CatModel(
-        status: json['status'] == null
-            ? null
-            : Status.fromJson(json['status'] as Map<String, dynamic>),
+        status: json['status'] == null ? null : null,
         id: json['_id'] as String?,
         user: json['user'] as String?,
         text: json['text'] as String?,
         v: json['__v'] as int?,
         source: json['source'] as String?,
-        updatedAt: json['updatedAt'] == null
-            ? null
-            : DateTime.parse(json['updatedAt'] as String),
+        updatedAt: json['updatedAt'] as String,
         type: json['type'] as String?,
-        createdAt: json['createdAt'] == null
-            ? null
-            : DateTime.parse(json['createdAt'] as String),
+        createdAt: json['createdAt'] as String,
         deleted: json['deleted'] as bool?,
         used: json['used'] as bool?,
       );
@@ -84,9 +78,9 @@ class CatModel {
     String? text,
     int? v,
     String? source,
-    DateTime? updatedAt,
+    String? updatedAt,
     String? type,
-    DateTime? createdAt,
+    String? createdAt,
     bool? deleted,
     bool? used,
   }) =>
@@ -129,6 +123,10 @@ class Status {
       Status(
         verified: verified ?? this.verified,
         sentCount: sentCount ?? this.sentCount,
+      );
+  factory Status.fromMap(Map<String, dynamic> json) => Status(
+        verified: json['verified'] as bool?,
+        sentCount: json['sentCount'] as int?,
       );
 
   factory Status.fromJson(Map<String, dynamic> json) => _$StatusFromJson(json);

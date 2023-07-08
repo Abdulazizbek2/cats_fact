@@ -15,13 +15,9 @@ CatModel _$CatModelFromJson(Map<String, dynamic> json) => CatModel(
       text: json['text'] as String?,
       v: json['__v'] as int?,
       source: json['source'] as String?,
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
+      updatedAt: json['updatedAt'] as String?,
       type: json['type'] as String?,
-      createdAt: json['createdAt'] == null
-          ? null
-          : DateTime.parse(json['createdAt'] as String),
+      createdAt: json['createdAt'] as String?,
       deleted: json['deleted'] as bool?,
       used: json['used'] as bool?,
     );
@@ -33,9 +29,9 @@ Map<String, dynamic> _$CatModelToJson(CatModel instance) => <String, dynamic>{
       'text': instance.text,
       '__v': instance.v,
       'source': instance.source,
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt,
       'type': instance.type,
-      'createdAt': instance.createdAt?.toIso8601String(),
+      'createdAt': instance.createdAt,
       'deleted': instance.deleted,
       'used': instance.used,
     };

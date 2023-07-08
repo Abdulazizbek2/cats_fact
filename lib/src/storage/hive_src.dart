@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cats_fact/models/cat_model.dart/cat_model.dart';
 import 'package:hive/hive.dart';
 
@@ -5,8 +7,7 @@ class HiveMethods {
   String hiveBox = 'hive_local_db';
   addFact(CatModel catModel) async {
     var box = await Hive.openBox(hiveBox);
-    var mapUserData = catModel.toMap(catModel);
-    await box.add(mapUserData);
+    await box.add(json.encode(catModel.toJson()));
     Hive.close();
   }
 
@@ -16,7 +17,7 @@ class HiveMethods {
 
     for (int i = box.length - 1; i >= 0; i--) {
       var userMap = box.getAt(i);
-      catFacts.add(CatModel.fromMap(Map.from(userMap)));
+      catFacts.add(CatModel.fromJson(json.decode(userMap)));
     }
     return catFacts;
   }

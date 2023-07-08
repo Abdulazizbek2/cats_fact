@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../blocs/get_facts/get_facts_bloc.dart';
-import '../../first_page/home_state.dart';
 import '../first/components/big_card.dart';
 
 class HistoryPage extends StatelessWidget {
@@ -9,19 +8,18 @@ class HistoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
+    // var appState = context.watch<MyAppState>();
 
-    return SafeArea(
+    return const SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(30),
-            child: Text('You have '
-                '${appState.history.length} facts:'),
-          ),
-          const Expanded(
-            // Make better use of wide windows with a grid.
+          // Padding(
+          //   padding: const EdgeInsets.all(30),
+          //   child: Text('You have '
+          //       '${appState.history.length} facts:'),
+          // ),
+          Expanded(
             child: HistoryListView(),
           ),
         ],
@@ -49,13 +47,13 @@ class _HistoryListViewState extends State<HistoryListView> {
   @override
   Widget build(BuildContext context) {
     // final appState = context.watch<MyAppState>();
-    // appState.historyListKey = _key;
     final bloc = context.read<GetFactsBloc>();
 
     return StreamBuilder<GetFactsState?>(
         initialData: bloc.state,
         stream: bloc.stream,
         builder: (context, snapshot) {
+          print(snapshot.data!.catshistoryList);
           return ShaderMask(
             shaderCallback: (bounds) => _maskingGradient.createShader(bounds),
             blendMode: BlendMode.dstIn,
@@ -66,6 +64,7 @@ class _HistoryListViewState extends State<HistoryListView> {
               initialItemCount: snapshot.data!.catshistoryList.length,
               itemBuilder: (context, index, animation) {
                 final pair = snapshot.data!.catshistoryList[index];
+                print(pair);
                 return SizeTransition(
                   sizeFactor: animation,
                   child: Padding(
