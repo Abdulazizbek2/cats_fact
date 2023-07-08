@@ -21,8 +21,6 @@ class BigCard extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: AnimatedSize(
           duration: const Duration(milliseconds: 200),
-          // Make sure that the compound word wraps correctly when the window
-          // is too narrow.
           child: MergeSemantics(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,

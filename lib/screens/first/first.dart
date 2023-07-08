@@ -107,12 +107,6 @@ class GeneratorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var appState = context.watch<MyAppState>();
-    // if (appState.current.id == null) {
-    //   appState.init();
-    // }
-    // var pair = appState.current;
-
     final bloc = context.read<GetFactsBloc>();
 
     return Scaffold(
