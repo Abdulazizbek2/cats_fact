@@ -1,6 +1,6 @@
-import 'package:cats_fact/first_page/first_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../first_page/first_page.dart';
 import '../first_page/home_state.dart';
 
 class HistoryyPage extends StatelessWidget {

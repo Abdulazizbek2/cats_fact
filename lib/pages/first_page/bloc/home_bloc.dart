@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cats_fact/models/cat_model.dart/cat_model.dart';
 
-import '../../src/storage/hive_src.dart';
+import '../../../src/storage/hive_src.dart';
 
 class SFCEvents {
   String? id;
