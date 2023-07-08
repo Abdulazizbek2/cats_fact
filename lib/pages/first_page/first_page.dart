@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import '../../models/cat_model.dart/cat_model.dart';
 import '../history_page/history_page.dart';
-import '../models/cat_model.dart/cat_model.dart';
 import 'home_state.dart';
 
 class MyHomePage extends StatefulWidget {

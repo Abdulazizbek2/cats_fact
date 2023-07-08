@@ -1,11 +1,9 @@
 import 'dart:math';
-
 import 'package:cats_fact/models/cat_model.dart/cat_model.dart';
 import 'package:cats_fact/src/repo/repozitoriy.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
-import '../src/storage/hive_src.dart';
+import '../../src/storage/hive_src.dart';
 
 class MyAppState extends ChangeNotifier {
   final HiveMethods hiveMethods = HiveMethods();
