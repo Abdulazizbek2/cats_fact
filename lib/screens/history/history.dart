@@ -8,17 +8,10 @@ class HistoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var appState = context.watch<MyAppState>();
-
     return const SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Padding(
-          //   padding: const EdgeInsets.all(30),
-          //   child: Text('You have '
-          //       '${appState.history.length} facts:'),
-          // ),
           Expanded(
             child: HistoryListView(),
           ),
@@ -46,9 +39,7 @@ class _HistoryListViewState extends State<HistoryListView> {
 
   @override
   Widget build(BuildContext context) {
-    // final appState = context.watch<MyAppState>();
     final bloc = context.read<GetFactsBloc>();
-
     return StreamBuilder<GetFactsState?>(
         initialData: bloc.state,
         stream: bloc.stream,

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:cats_fact/models/cat_model.dart/cat_model.dart';
 import 'package:hive/hive.dart';
 
